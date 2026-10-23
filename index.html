@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Bloom & Root Garden Studio — plants, garden styling, and simple care for greener spaces.">
+    <title>Bloom & Root | Garden Studio</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+        @custom-variant dark (&:where(.dark, .dark *));
+
+        @theme {
+            --color-leaf: #426b4a;
+            --color-leaf-dark: #2f5037;
+            --color-sage: #dce8d8;
+            --color-cream: #f7f5ed;
+            --color-ink: #253329;
+            --color-sun: #e9b949;
+        }
+
+        @layer components {
+            .btn-primary {
+                @apply inline-flex items-center justify-center rounded-full bg-leaf px-6 py-3 text-sm font-semibold text-white shadow-sm transition duration-300 hover:bg-leaf-dark focus:outline-none focus:ring-2 focus:ring-leaf focus:ring-offset-2 dark:bg-emerald-700 dark:text-white dark:hover:bg-emerald-600 dark:focus:ring-offset-slate-950;
+            }
+
+            .btn-secondary {
+                @apply inline-flex items-center justify-center rounded-full border border-leaf/30 px-6 py-3 text-sm font-semibold text-ink transition duration-300 hover:bg-sage/70 dark:border-white/20 dark:bg-white/5 dark:text-stone-100 dark:hover:bg-white/10;
+            }
+
+            .section-kicker {
+                @apply mb-3 text-xs font-bold uppercase tracking-[0.22em] text-leaf dark:text-emerald-300;
+            }
+
+            .section-title {
+                @apply text-3xl font-bold tracking-tight text-ink sm:text-4xl dark:text-stone-50;
+            }
+
+            .garden-card {
+                @apply overflow-hidden rounded-3xl border border-ink/5 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-slate-900;
+            }
+
+            .form-input {
+                @apply mt-2 w-full rounded-2xl border border-ink/15 bg-white px-4 py-3 text-sm text-ink outline-none transition placeholder:text-stone-400 focus:border-leaf focus:ring-2 focus:ring-leaf/20 dark:border-white/15 dark:bg-slate-950 dark:text-stone-100 dark:placeholder:text-stone-500;
+            }
+        }
+    </style>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system,
+                BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        #progressBar {
+            transform: scaleX(0);
+            transform-origin: left center;
+        }
+
+        .hero-photo {
+            background-image:
+                linear-gradient(180deg,
+                    rgba(20, 36, 25, .04),
+                    rgba(20, 36, 25, .25)),
+                url("https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1400&q=85");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .plant-photo {
+            background-position: center;
+            background-size: cover;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            ::before,
+            ::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-cream text-ink antialiased transition-colors duration-300 dark:bg-slate-950 dark:text-stone-100">
+
+    <div id="progressBar" aria-hidden="true" class="fixed left-0 top-0 z-[100] h-1 w-full origin-left bg-sun">
+    </div>
+
+    <header
+        class="sticky top-0 z-50 border-b border-ink/5 bg-cream/90 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/85">
+        <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8"
+            aria-label="Main navigation">
+
+            <a href="#home" class="flex items-center gap-3" aria-label="Bloom and Root home">
+                <span class="grid h-11 w-11 place-items-center rounded-2xl bg-leaf text-xl text-white"
+                    aria-hidden="true"></span>
+
+                <span>
+                    <span class="block text-sm font-extrabold tracking-tight text-ink dark:text-white">
+                        bloom <span class="text-leaf dark:text-emerald-300">&</span> root
+                    </span>
+                    <span
+                        class="block text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
+                        Garden Studio
+                    </span>
+                </span>
+            </a>
+
+            <button id="mobileMenuToggle" type="button"
+                class="rounded-full border border-ink/10 px-4 py-2 text-sm font-semibold md:hidden dark:border-white/15 dark:bg-white/5 dark:text-stone-100"
+                aria-expanded="false" aria-controls="navLinks"> 
+                Menu 
+            </button>
+
+            <div id="navLinks"
+                class="absolute left-0 right-0 top-full hidden flex-col gap-4 border-b border-ink/10 bg-cream px-6 py-5 md:static md:flex md:flex-row md:items-center md:gap-7 md:border-0 md:bg-transparent md:p-0 dark:border-white/10 dark:bg-slate-950 md:dark:bg-transparent">
+
+                <a class="text-sm font-medium text-stone-600 transition hover:text-leaf dark:text-stone-300 dark:hover:text-emerald-300"
+                    href="#about">Our story</a>
+
+                <a class="text-sm font-medium text-stone-600 transition hover:text-leaf dark:text-stone-300 dark:hover:text-emerald-300"
+                    href="#services">Services</a>
+
+                <a class="text-sm font-medium text-stone-600 transition hover:text-leaf dark:text-stone-300 dark:hover:text-emerald-300"
+                    href="#plants">Plant picks</a>
+
+                <a class="text-sm font-medium text-stone-600 transition hover:text-leaf dark:text-stone-300 dark:hover:text-emerald-300"
+                    href="#contact">Contact</a>
+            </div>
+
+            <button id="darkModeToggle" type="button"
+                class="hidden rounded-full border border-ink/10 px-4 py-2 text-xs font-bold transition hover:bg-sage/60 sm:inline-flex dark:border-white/15 dark:hover:bg-white/10"
+                aria-pressed="true">
+                Light Mode
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section id="home"
+            class="mx-auto grid max-w-7xl items-center gap-12 bg-cream px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-[1fr_0.95fr] lg:py-24 dark:bg-slate-950">
+
+            <div class="relative z-10">
+                <div id="heroLabel"
+                    class="mb-6 inline-flex items-center gap-2 rounded-full border border-leaf/15 bg-white/70 px-4 py-2 text-xs font-bold text-leaf shadow-sm dark:border-emerald-200/15 dark:bg-white/5 dark:text-emerald-300">
+                    <span class="h-2 w-2 rounded-full bg-sun"></span>
+                    A little more green, every day
+                </div>
+
+                <h1 id="heroTitle"
+                    class="max-w-2xl text-5xl font-black leading-[1.04] tracking-tight text-ink sm:text-6xl lg:text-7xl dark:text-white">
+                    Make room for
+                    <span class="font-serif font-medium italic text-leaf dark:text-emerald-300">something</span>
+                    that grows.
+                </h1>
+
+                <p id="heroDescription"
+                    class="mt-6 max-w-xl text-base leading-8 text-stone-600 sm:text-lg dark:text-stone-300">
+                    Thoughtful plants, friendly garden advice, and small-space styling
+                    to help your home feel a little more alive.
+                </p>
+
+                <div id="heroActions" class="mt-8 flex flex-wrap gap-3">
+                    <a href="#services" class="btn-primary">
+                        Explore our services <span class="ml-2" aria-hidden="true">↗</span>
+                    </a>
+
+                    <a href="#plants" class="btn-secondary">
+                        Find your plant
+                    </a>
+
+                    <button id="replayBtn" type="button"
+                        class="rounded-full px-4 py-3 text-sm font-semibold text-stone-600 transition hover:bg-sage/60 dark:bg-white/5 dark:text-stone-300 dark:hover:bg-white/10"
+                        aria-label="Replay the introduction animation">
+
+                    </button>
+                </div>
+
+                <div
+                    class="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3 border-t border-ink/10 pt-6 text-xs font-medium text-stone-500 dark:border-white/10 dark:text-stone-400">
+                    <span><strong class="mr-1 text-ink dark:text-white">01</strong> Grow at your pace</span>
+                    <span><strong class="mr-1 text-ink dark:text-white">02</strong> Keep it simple</span>
+                    <span><strong class="mr-1 text-ink dark:text-white">03</strong> Enjoy the process</span>
+                </div>
+            </div>
+
+            <div id="heroArtwork" class="relative mx-auto w-full max-w-xl">
+                <div
+                    class="hero-photo relative min-h-[430px] overflow-hidden rounded-[2rem] shadow-2xl shadow-leaf/15 sm:min-h-[540px]">
+                    <div
+                        class="absolute inset-x-5 bottom-5 rounded-3xl border border-white/30 bg-white/85 p-5 backdrop-blur-md dark:border-white/15 dark:bg-slate-900/90 sm:inset-x-7 sm:bottom-7 sm:p-6">
+                        <div class="flex items-center justify-between gap-4">
+                            <div>
+                                <p
+                                    class="text-xs font-bold uppercase tracking-[0.18em] text-leaf dark:text-emerald-300">
+                                    The garden note
+                                </p>
+                                <p class="mt-2 text-lg font-bold text-ink sm:text-xl dark:text-stone-100">
+                                    Start small. Grow wild.
+                                </p>
+                            </div>
+
+
+                            </span>
+                        </div>
+
+                        <p class="mt-2 text-sm leading-6 text-stone-600 dark:text-stone-300">
+                            A sunny windowsill is a beautiful place to begin.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about"
+            class="reveal border-y border-ink/5 bg-white px-5 py-20 sm:px-8 sm:py-24 dark:border-white/10 dark:bg-slate-900/50">
+            <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-2 md:items-center">
+                <div>
+                    <p class="section-kicker">Our story</p>
+                    <h2 class="section-title">Good things grow with a little care.</h2>
+                </div>
+
+                <div>
+                    <p class="text-base leading-8 text-stone-600 dark:text-stone-300">
+                        Bloom & Root is a small garden studio for people who want to bring
+                        more nature into everyday life. We believe gardening should feel
+                        welcoming, creative, and possible at any size—from a single desk
+                        plant to a refreshed backyard.
+                    </p>
+
+                    <a href="#contact"
+                        class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-leaf hover:underline dark:text-emerald-300">
+                        Tell us about your space <span aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section id="services" class="reveal mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24">
+            <div class="mb-10 max-w-2xl">
+                <p class="section-kicker">What we do</p>
+                <h2 class="section-title">A greener space, made simple.</h2>
+                <p class="mt-4 leading-7 text-stone-600 dark:text-stone-300">
+                    Small, thoughtful services to help your plants and outdoor spaces thrive.
+                </p>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                <article class="garden-card">
+                    <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=900&q=80"
+                        alt="Potted green houseplants" class="h-56 w-full object-cover" loading="lazy">
+                    <div class="p-6">
+                        <span class="text-xs font-bold uppercase tracking-widest text-leaf dark:text-emerald-300">01 /
+                            Plants</span>
+                        <h3 class="mt-3 text-xl font-bold text-ink dark:text-white">Plant pairing</h3>
+                        <p class="mt-3 leading-7 text-stone-600 dark:text-stone-300">
+                            Find plants that match your light, space, and daily routine.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="garden-card">
+                    <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=900&q=80"
+                        alt="Hands caring for plants in a garden" class="h-56 w-full object-cover" loading="lazy">
+                    <div class="p-6">
+                        <span class="text-xs font-bold uppercase tracking-widest text-leaf dark:text-emerald-300">02 /
+                            Styling</span>
+                        <h3 class="mt-3 text-xl font-bold text-ink dark:text-white">Garden refresh</h3>
+                        <p class="mt-3 leading-7 text-stone-600 dark:text-stone-300">
+                            Give balconies, patios, and corners a fresh natural look.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="garden-card">
+                    <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=900&q=80"
+                        alt="Rows of thriving plants in a garden" class="h-56 w-full object-cover" loading="lazy">
+                    <div class="p-6">
+                        <span class="text-xs font-bold uppercase tracking-widest text-leaf dark:text-emerald-300">03 /
+                            Learning</span>
+                        <h3 class="mt-3 text-xl font-bold text-ink dark:text-white">Plant-care basics</h3>
+                        <p class="mt-3 leading-7 text-stone-600 dark:text-stone-300">
+                            Learn simple watering, light, and maintenance routines.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- PLANT PICKS SECTION -->
+        <section id="plants" class="reveal bg-sage/60 px-5 py-20 sm:px-8 sm:py-24 dark:bg-emerald-950/30">
+            <div class="mx-auto max-w-7xl">
+                <div class="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+                    <div>
+                        <p class="section-kicker">Plant picks</p>
+                        <h2 class="section-title">Meet your new green friends.</h2>
+                    </div>
+
+                    <p class="max-w-md leading-7 text-stone-600 dark:text-stone-300">
+                        Start with a plant that fits your space. You can always grow your collection later.
+                    </p>
+                </div>
+
+                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    <article class="garden-card">
+                        <div class="plant-photo h-64" role="img" aria-label="Monstera plant"
+                            style="background-image:url('https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=900&q=80')">
+                        </div>
+                        <div class="flex items-center justify-between gap-4 p-5">
+                            <div>
+                                <h3 class="font-bold text-ink dark:text-white">Monstera</h3>
+                                <p class="mt-1 text-sm text-stone-500 dark:text-stone-400">A bold statement plant</p>
+                            </div>
+                            <span
+                                class="rounded-full bg-sage px-3 py-1 text-xs font-bold text-leaf dark:bg-emerald-950 dark:text-emerald-300">Bright,
+                                indirect light</span>
+                        </div>
+                    </article>
+
+                    <article class="garden-card">
+                        <div class="plant-photo h-64" role="img" aria-label="Snake plant"
+                            style="background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYFzDAhSvtfxtjGSuiLadYyDtJ-7zGHBniRHf36dP2lQ&s=10)">
+                        </div>
+                        <div class="flex items-center justify-between gap-4 p-5">
+                            <div>
+                                <h3 class="font-bold text-ink dark:text-white">Snake plant</h3>
+                                <p class="mt-1 text-sm text-stone-500 dark:text-stone-400">Low-fuss and resilient</p>
+                            </div>
+                            <span
+                                class="rounded-full bg-sage px-3 py-1 text-xs font-bold text-leaf dark:bg-emerald-950 dark:text-emerald-300">Easy
+                                care</span>
+                        </div>
+                    </article>
+
+                    <article class="garden-card">
+                        <div class="plant-photo h-64" role="img" aria-label="Pothos plant"
+                            style="background-image:url(https://www.beardsanddaisies.co.uk/cdn/shop/files/Satin_Pothos_NEW.jpg?v=1779451333)">
+                        </div>
+                        <div class="flex items-center justify-between gap-4 p-5">
+                            <div>
+                                <h3 class="font-bold text-ink dark:text-white">Pothos</h3>
+                                <p class="mt-1 text-sm text-stone-500 dark:text-stone-400">A lovely trailing plant</p>
+                            </div>
+                            <span
+                                class="rounded-full bg-sage px-3 py-1 text-xs font-bold text-leaf dark:bg-emerald-950 dark:text-emerald-300">Versatile</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="reveal mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 sm:py-24 lg:grid-cols-2">
+            <div>
+                <p class="section-kicker">Get in touch</p>
+                <h2 class="section-title">Let's grow something good.</h2>
+                <p class="mt-5 max-w-lg leading-8 text-stone-600 dark:text-stone-300">
+                    Tell us about your plant goals, garden ideas, or the corner of your home
+                    that needs a little green. We would love to hear from you.
+                </p>
+
+                <div class="mt-8 space-y-4 text-sm text-stone-600 dark:text-stone-300">
+                    <p><span class="mr-2 text-leaf dark:text-emerald-300">✿</span> Friendly advice for beginners</p>
+                    <p><span class="mr-2 text-leaf dark:text-emerald-300">✿</span> Ideas for small and large spaces</p>
+                    <p><span class="mr-2 text-leaf dark:text-emerald-300">✿</span> Simple care routines</p>
+                </div>
+            </div>
+
+            <form id="contactForm"
+                class="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm sm:p-8 dark:border-white/10 dark:bg-slate-900"
+                action="#" method="post">
+                <div class="mb-5">
+                    <label for="name" class="text-sm font-semibold text-ink dark:text-stone-100">Your name</label>
+                    <input id="name" name="name" type="text" autocomplete="name" required placeholder="Enter your name"
+                        class="form-input">
+                </div>
+
+                <div class="mb-5">
+                    <label for="email" class="text-sm font-semibold text-ink dark:text-stone-100">Email address</label>
+                    <input id="email" name="email" type="email" autocomplete="email" required
+                        placeholder="you@example.com" class="form-input">
+                </div>
+
+                <div class="mb-5">
+                    <label for="message" class="text-sm font-semibold text-ink dark:text-stone-100">Your message</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Tell us about your garden..."
+                        class="form-input"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary w-full">Send a garden note <span class="ml-2"
+                        aria-hidden="true">↗</span></button>
+                <p id="formStatus" role="status" aria-live="polite"
+                    class="mt-4 hidden rounded-2xl bg-sage p-4 text-sm leading-6 text-ink dark:bg-emerald-950 dark:text-emerald-100">
+                </p>
+                <p class="mt-4 text-xs leading-5 text-stone-500 dark:text-stone-400">
+                    Demo form only. It displays a confirmation but does not send or store messages.
+                </p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="border-t border-ink/10 bg-white px-5 py-8 dark:border-white/10 dark:bg-slate-950">
+        <div class="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p class="text-sm font-bold text-ink dark:text-white">bloom <span
+                    class="text-leaf dark:text-emerald-300">&</span> root</p>
+            <p class="text-xs text-stone-500 dark:text-stone-400">A little more green, every day.</p>
+            <p class="text-xs text-stone-500 dark:text-stone-400">© <span id="year"></span> Bloom & Root Garden Studio.
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
